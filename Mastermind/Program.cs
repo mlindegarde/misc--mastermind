@@ -8,7 +8,7 @@ namespace Mastermind
         {
             Game game = new Game();
 
-            Result result = game.CheckGuess(new[] {'4', '2', '2', '1'});
+            Result result = game.CheckGuess("4221");
 
             Solver solver = new Solver();
 

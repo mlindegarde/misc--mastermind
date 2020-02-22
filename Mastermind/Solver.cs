@@ -8,8 +8,8 @@ namespace Mastermind
         {
             Solution solution = new Solution();
 
-            List<char[]> possibilities = GenerationAllPossibilities();
-            char[] guess = { '1', '1', '2', '2' };
+            List<string> possibilities = GenerationAllPossibilities();
+            string guess = "1122";
 
             while (!solution.HasAnswer)
             {
@@ -21,7 +21,7 @@ namespace Mastermind
             return solution;
         }
 
-        private void Solve(Game game, char[] guess, Solution solution, List<char[]> possibilities)
+        private void Solve(Game game, string guess, Solution solution, List<string> possibilities)
         {
             Result baseResult = game.CheckGuess(guess);
 
@@ -35,7 +35,7 @@ namespace Mastermind
 
             for (int i = 0; i < possibilities.Count; i++)
             {
-                Result result = game.CheckGuess(guess, possibilities[i]);
+                Result result = Game.CheckGuess(guess, possibilities[i]);
 
                 if (!result.Equals(baseResult))
                 {
@@ -46,9 +46,9 @@ namespace Mastermind
         }
 
         #region Utility Methods
-        private List<char[]> GenerationAllPossibilities()
+        private List<string> GenerationAllPossibilities()
         {
-            List<char[]> solutions = new List<char[]>();
+            List<string> solutions = new List<string>();
 
             for (int a = 1; a <= 6; a++)
             {
@@ -59,13 +59,13 @@ namespace Mastermind
                         for (int d = 1; d <= 6; d++)
                         {
                             solutions.Add(
-                                new[]
+                                new string(new[]
                                 {
                                     (char)(a + 48),
                                     (char)(b + 48),
                                     (char)(c + 48),
                                     (char)(d + 48)
-                                });
+                                }));
                         }
                     }
                 }

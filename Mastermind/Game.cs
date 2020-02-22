@@ -7,7 +7,7 @@ namespace Mastermind
     public class Game
     {
         #region Member Variables
-        private readonly char[] _answer;
+        private readonly string _answer;
         #endregion
 
         #region Constructor
@@ -15,22 +15,27 @@ namespace Mastermind
         {
             Random rnd = new Random();
 
-            _answer = new[]
-            {
-                (char)(rnd.Next(1,7)+48),
-                (char)(rnd.Next(1,7)+48),
-                (char)(rnd.Next(1,7)+48),
-                (char)(rnd.Next(1,7)+48)
-            };
+            _answer = 
+                new string(new[]
+                {
+                    (char)(rnd.Next(1,7)+48),
+                    (char)(rnd.Next(1,7)+48),
+                    (char)(rnd.Next(1,7)+48),
+                    (char)(rnd.Next(1,7)+48)
+                });
         }
         #endregion
 
         #region Methods
-        public Result CheckGuess(char[] guess, char[] answer = null)
+        public Result CheckGuess(string guess)
         {
-            if(answer == null)
-                answer = _answer;
+            return CheckGuess(guess, _answer);
+        }
+        #endregion
 
+        #region Static Methods
+        public static Result CheckGuess(string guess, string answer)
+        {
             Result result = new Result();
 
             List<char> answerValues = new List<char>();
@@ -38,13 +43,13 @@ namespace Mastermind
 
             for (int i = 0; i < guess.Length; i++)
             {
-                if (answer[i] == guess[i])
-                    result.ExactlyRight++;
-                else
+                if (answer[i] != guess[i])
                 {
                     answerValues.Add(answer[i]);
                     guessValues.Add(guess[i]);
                 }
+                else
+                    result.ExactlyRight++;
 
                 foreach (char c in guessValues)
                 {
