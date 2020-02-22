@@ -4,7 +4,7 @@ namespace Mastermind
 {
     public class Solver
     {
-        public Solution Solve(Game game)
+        public Solution Crack(Safe safe)
         {
             Solution solution = new Solution();
 
@@ -13,7 +13,7 @@ namespace Mastermind
 
             while (!solution.HasAnswer)
             {
-                Solve(game, guess, solution, possibilities);
+                Crack(safe, guess, solution, possibilities);
 
                 guess = possibilities[0];
             }
@@ -21,9 +21,9 @@ namespace Mastermind
             return solution;
         }
 
-        private void Solve(Game game, string guess, Solution solution, List<string> possibilities)
+        private void Crack(Safe safe, string guess, Solution solution, List<string> possibilities)
         {
-            Result baseResult = game.CheckGuess(guess);
+            Result baseResult = safe.TryCombination(guess);
 
             solution.Guesses.Add(guess);
 
@@ -35,7 +35,7 @@ namespace Mastermind
 
             for (int i = 0; i < possibilities.Count; i++)
             {
-                Result result = Game.CheckGuess(guess, possibilities[i]);
+                Result result = Safe.TryCombination(guess, possibilities[i]);
 
                 if (!result.Equals(baseResult))
                 {

@@ -10,6 +10,10 @@ namespace Mastermind
         public int SortaRight { get; set; } = 0;
         #endregion
 
+        #region Wrapper Properties
+        public bool WasSuccessful => ExactlyRight == 4;
+        #endregion
+
         #region Overrides
         public override string ToString()
         {

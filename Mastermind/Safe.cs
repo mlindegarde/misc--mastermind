@@ -1,40 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Mastermind
 {
-    public class Game
+    public class Safe
     {
         #region Member Variables
-        private readonly string _answer;
+        private readonly string _combination;
         #endregion
 
         #region Constructor
-        public Game()
+        public Safe(string combination)
         {
-            Random rnd = new Random();
-
-            _answer = 
-                new string(new[]
-                {
-                    (char)(rnd.Next(1,7)+48),
-                    (char)(rnd.Next(1,7)+48),
-                    (char)(rnd.Next(1,7)+48),
-                    (char)(rnd.Next(1,7)+48)
-                });
+            _combination = combination;
         }
         #endregion
 
         #region Methods
-        public Result CheckGuess(string guess)
+        public Result TryCombination(string guess)
         {
-            return CheckGuess(guess, _answer);
+            return TryCombination(guess, _combination);
         }
         #endregion
 
         #region Static Methods
-        public static Result CheckGuess(string guess, string answer)
+        public static Result TryCombination(string guess, string answer)
         {
             Result result = new Result();
 
