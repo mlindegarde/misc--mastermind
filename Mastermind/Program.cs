@@ -1,27 +1,33 @@
-﻿using System;
-using Mastermind.Ai;
+﻿using System.Threading.Tasks;
+using Lamar;
 using Mastermind.Application;
-using Mastermind.Model;
+using Mastermind.Presenters;
 
 namespace Mastermind
 {
     class Program
     {
         #region Member Variables
-        private Combination _combination;
+        private IContainer _container;
+        //private Combination _combination;
         #endregion
 
         #region Methods
         private void Init()
         {
+            /*
             _combination =
                 new CombinationBuilder()
                     .WithLength(4)
                     .UsingDigitsBetween(1, 6);
+                    */
+
+            _container = new Container(new MastermindServiceRegistry());
         }
 
-        private void Run()
+        private async Task RunAsync()
         {
+            /*
             int guessCount = 0;
 
             Result result;
@@ -40,15 +46,21 @@ namespace Mastermind
             Solver solver = new Solver();
             Solution solution = solver.Crack(_combination);
             Console.ReadLine();
+            */
+
+            IPresenter presenter = _container.GetInstance<MainMenuPresenter>();
+
+            while(presenter != null)
+                presenter = await presenter.PresentAsync();
         }
         #endregion
 
-        static void Main()
+        static async Task Main()
         {
             Program game = new Program();
 
             game.Init();
-            game.Run();
+            await game.RunAsync();
         }
     }
 }
