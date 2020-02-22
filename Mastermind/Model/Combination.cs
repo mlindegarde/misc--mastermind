@@ -26,14 +26,12 @@ namespace Mastermind.Model
         #endregion
 
         #region Methods
-        public Result TryGuess(string guess)
+        public Result Try(string guess)
         {
-            return TryCombination(guess, _value);
+            return Try(guess, _value);
         }
-        #endregion
 
-        #region Static Methods
-        public static Result TryCombination(string guess, string answer)
+        public Result Try(string guess, string answer)
         {
             Result result = new Result();
 
@@ -52,11 +50,14 @@ namespace Mastermind.Model
 
                 foreach (char c in guessValues)
                 {
-                    if (!answerValues.Contains(c))
-                        continue;
+                    if(answerValues.Contains(c))
+                    {
+                        result.SortaRight++;
+                        answerValues.Remove(c);
+                    }
+                    else
+                        result.CompletelyWrong++;
 
-                    result.SortaRight++;
-                    answerValues.Remove(c);
                 }
             }
 

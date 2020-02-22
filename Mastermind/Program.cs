@@ -24,20 +24,18 @@ namespace Mastermind
         {
             int guessCount = 0;
 
-            Result result = null;
+            Result result;
 
-            /*
             do
             {
                 string guess = Console.ReadLine();
 
-                result = _safe.TryCombination(guess);
+                result = _combination.Try(guess);
 
                 Console.WriteLine(result);
                 guessCount++;
 
             } while(guessCount < 10 && !result.WasRight);
-           */
 
             Solver solver = new Solver();
             Solution solution = solver.Crack(_combination);
@@ -45,7 +43,7 @@ namespace Mastermind
         }
         #endregion
 
-        static void Main(string[] args)
+        static void Main()
         {
             Program game = new Program();
 

@@ -27,7 +27,7 @@ namespace Mastermind.Ai
 
         private void Crack(Combination combination, string guess, Solution solution, List<string> possibilities)
         {
-            Result baseResult = combination.TryGuess(guess);
+            Result baseResult = combination.Try(guess);
 
             solution.Guesses.Add(guess);
 
@@ -39,9 +39,9 @@ namespace Mastermind.Ai
 
             for (int i = 0; i < possibilities.Count; i++)
             {
-                Result result = Safe.TryCombination(guess, possibilities[i]);
+                Result result = combination.Try(guess, possibilities[i]);
 
-                if (!result.Equals(baseResult))
+                if(!result.HasSameIndicatorsAs(baseResult))
                 {
                     possibilities.Remove(possibilities[i]);
                     i--;
@@ -52,19 +52,14 @@ namespace Mastermind.Ai
         #region Utility Methods
         private string GenerateInitialGuess(Combination combination)
         {
-            bool isOdd = combination.Length % 2 == 1;
-            int halfLength = combination.Length / 2;
-
             StringBuilder sb = new StringBuilder();
 
-            for(int i = 0; i < halfLength; i++)
+            for(int i = 0, digit = 1; i < combination.Length; i++)
             {
-                sb.Append("1");
-            }
+                sb.Append(digit);
 
-            for(int i = 0; i < halfLength+(isOdd? 1 : 0); i++)
-            {
-                sb.Append("2");
+                if(i % 2 == 1)
+                    digit++;
             }
 
             return sb.ToString();

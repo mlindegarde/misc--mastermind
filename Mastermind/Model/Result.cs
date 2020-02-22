@@ -1,17 +1,24 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
 namespace Mastermind.Model
 {
-    public class Result : IEquatable<Result>
+    public class Result
     {
         #region Properties
         public int ExactlyRight { get; set; } = 0;
         public int SortaRight { get; set; } = 0;
+        public int CompletelyWrong { get; set; } = 0;
         #endregion
 
         #region Wrapper Properties
-        public bool WasRight => ExactlyRight == 4;
+        public bool WasRight => CompletelyWrong == 0 && SortaRight == 0;
+        #endregion
+
+        #region Methods
+        public bool HasSameIndicatorsAs(Result other)
+        {
+            return ExactlyRight == other.ExactlyRight && SortaRight == other.SortaRight;
+        }
         #endregion
 
         #region Overrides
@@ -31,31 +38,6 @@ namespace Mastermind.Model
 
         #region Operators
         public static implicit operator string(Result result) => result.ToString();
-        #endregion
-
-        #region IEquatable Implementation
-        public bool Equals(Result other)
-        {
-            if(ReferenceEquals(null, other)) return false;
-            if(ReferenceEquals(this, other)) return true;
-            return ExactlyRight == other.ExactlyRight && SortaRight == other.SortaRight;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if(ReferenceEquals(null, obj)) return false;
-            if(ReferenceEquals(this, obj)) return true;
-            if(obj.GetType() != this.GetType()) return false;
-            return Equals((Result)obj);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return (ExactlyRight * 397) ^ SortaRight;
-            }
-        }
         #endregion
     }
 }
