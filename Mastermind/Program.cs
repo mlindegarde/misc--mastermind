@@ -1,21 +1,23 @@
 ﻿using System;
+using Mastermind.Ai;
+using Mastermind.Application;
+using Mastermind.Model;
 
 namespace Mastermind
 {
     class Program
     {
         #region Member Variables
-        private Safe _safe;
+        private Combination _combination;
         #endregion
 
         #region Methods
         private void Init()
         {
-            _safe =
-                new Safe(
-                    new CombinationBuilder()
-                        .WithLength(4)
-                        .UsingDigitsBetween(1, 6));
+            _combination =
+                new CombinationBuilder()
+                    .WithLength(4)
+                    .UsingDigitsBetween(1, 6);
         }
 
         private void Run()
@@ -24,6 +26,7 @@ namespace Mastermind
 
             Result result = null;
 
+            /*
             do
             {
                 string guess = Console.ReadLine();
@@ -33,11 +36,11 @@ namespace Mastermind
                 Console.WriteLine(result);
                 guessCount++;
 
-            } while(guessCount < 10 && !result.WasSuccessful);
-           
+            } while(guessCount < 10 && !result.WasRight);
+           */
 
             Solver solver = new Solver();
-            Solution solution = solver.Crack(_safe);
+            Solution solution = solver.Crack(_combination);
             Console.ReadLine();
         }
         #endregion

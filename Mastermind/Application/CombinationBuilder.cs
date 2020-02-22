@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Linq;
+using Mastermind.Model;
 
-namespace Mastermind
+namespace Mastermind.Application
 {
     public class CombinationBuilder
     {
@@ -26,21 +27,24 @@ namespace Mastermind
             return this;
         }
 
-        public string Build()
+        public Combination Build()
         {
             Random rnd = new Random();
 
             return
-                new String(
-                    Enumerable
-                        .Range(0, _digitCount)
-                        .Select(_ => (char)(rnd.Next(_minDigit, _maxDigit + 1) + 48))
-                        .ToArray());
+                new Combination(
+                    new String(
+                        Enumerable
+                            .Range(0, _digitCount)
+                            .Select(_ => (char)(rnd.Next(_minDigit, _maxDigit + 1) + 48))
+                            .ToArray()),
+                    _minDigit,
+                    _maxDigit);
         }
         #endregion
 
         #region Operators
-        public static implicit operator string(CombinationBuilder builder) => builder.Build();
+        public static implicit operator Combination(CombinationBuilder builder) => builder.Build();
         #endregion
     }
 }

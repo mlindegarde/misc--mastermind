@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Mastermind
+namespace Mastermind.Model
 {
     public class Result : IEquatable<Result>
     {
@@ -11,7 +11,7 @@ namespace Mastermind
         #endregion
 
         #region Wrapper Properties
-        public bool WasSuccessful => ExactlyRight == 4;
+        public bool WasRight => ExactlyRight == 4;
         #endregion
 
         #region Overrides

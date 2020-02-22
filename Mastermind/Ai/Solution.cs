@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Mastermind
+namespace Mastermind.Ai
 {
     public class Solution
     {

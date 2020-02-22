@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Mastermind
+namespace Mastermind.Model
 {
     public class Safe
     {
@@ -42,11 +42,11 @@ namespace Mastermind
 
                 foreach (char c in guessValues)
                 {
-                    if (answerValues.Contains(c))
-                    {
-                        result.SortaRight++;
-                        answerValues.Remove(c);
-                    }
+                    if(!answerValues.Contains(c)) 
+                        continue;
+
+                    result.SortaRight++;
+                    answerValues.Remove(c);
                 }
             }
 
