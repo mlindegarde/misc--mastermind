@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Mastermind.Presenters
+﻿namespace Mastermind.Presenters
 {
     public interface IPresenter
     {
@@ -9,7 +7,7 @@ namespace Mastermind.Presenters
         #endregion
 
         #region Methods
-        Task<IPresenter> PresentAsync();
+        IPresenter Present();
         #endregion
     }
 }

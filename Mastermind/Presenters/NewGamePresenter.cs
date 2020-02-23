@@ -1,5 +1,4 @@
 ﻿using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Lamar;
 using Mastermind.Model;
 using Mastermind.Views;
@@ -24,7 +23,7 @@ namespace Mastermind.Presenters
         #endregion
 
         #region Base Class Overrides
-        protected override Task<IPresenter> OnUserInputAsync(string input)
+        protected override IPresenter OnUserInput(string input)
         {
             Regex confirmRegEx = new Regex(@"^yep|yes|yeah|y$", RegexOptions.IgnoreCase);
 
@@ -33,10 +32,10 @@ namespace Mastermind.Presenters
                 GetGuessPresenter presenter = Container.GetInstance<GetGuessPresenter>();
                 presenter.Game = Container.GetInstance<Game>();
 
-                return Task.FromResult((IPresenter)presenter);
+                return presenter;
             }
             
-            return Task.FromResult((IPresenter)Container.GetInstance<MainMenuPresenter>());
+            return Container.GetInstance<MainMenuPresenter>();
         }
         #endregion
     }

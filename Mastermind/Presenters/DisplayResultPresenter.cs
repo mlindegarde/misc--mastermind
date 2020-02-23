@@ -34,14 +34,14 @@ namespace Mastermind.Presenters
         #endregion
 
         #region Base Class Overrides
-        public override Task<IPresenter> PresentAsync()
+        public override IPresenter Present()
         {
             View.Result = Result;
 
-            return base.PresentAsync();
+            return base.Present();
         }
 
-        protected override Task<IPresenter> OnUserInputAsync(string input)
+        protected override IPresenter OnUserInput(string input)
         {
             if(Game.WasWon || Game.GuessCount == _settings.GuessLimit)
             {
@@ -51,7 +51,7 @@ namespace Mastermind.Presenters
             GetGuessPresenter presenter = Container.GetInstance<GetGuessPresenter>();
             presenter.Game = Game;
 
-            return Task.FromResult((IPresenter)presenter);
+            return presenter;
         }
         #endregion
     }

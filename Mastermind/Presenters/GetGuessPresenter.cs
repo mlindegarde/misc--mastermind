@@ -25,20 +25,20 @@ namespace Mastermind.Presenters
         #endregion
 
         #region Base Class Overrides
-        public override Task<IPresenter> PresentAsync()
+        public override IPresenter Present()
         {
             View.Game = Game;
 
-            return base.PresentAsync();
+            return base.Present();
         }
 
-        protected override Task<IPresenter> OnUserInputAsync(string input)
+        protected override IPresenter OnUserInput(string input)
         {
             DisplayResultPresenter presenter = Container.GetInstance<DisplayResultPresenter>();
             presenter.Game = Game;
             presenter.Result = Game.TryCombination(input);
 
-            return Task.FromResult((IPresenter)presenter);
+            return presenter;
         }
         #endregion
     }

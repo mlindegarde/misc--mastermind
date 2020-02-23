@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Lamar;
+﻿using Lamar;
 using Mastermind.Application;
 using Mastermind.Presenters;
 
@@ -17,21 +16,21 @@ namespace Mastermind
             _container = new Container(new MastermindServiceRegistry());
         }
 
-        private async Task RunAsync()
+        private void Run()
         {
             IPresenter presenter = _container.GetInstance<MainMenuPresenter>();
 
             while(presenter != null)
-                presenter = await presenter.PresentAsync();
+                presenter = presenter.Present();
         }
         #endregion
 
-        static async Task Main()
+        static void Main()
         {
             Program program = new Program();
 
             program.Init();
-            await program.RunAsync();
+            program.Run();
         }
     }
 }

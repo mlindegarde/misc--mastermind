@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
 using Lamar;
 using Mastermind.Views;
 using Serilog;
@@ -24,14 +23,14 @@ namespace Mastermind.Presenters
 
         #region Base Class Overrides
         [SuppressMessage("ReSharper", "RedundantCast")]
-        protected override Task<IPresenter> OnUserInputAsync(string input)
+        protected override IPresenter OnUserInput(string input)
         {
             switch (input)
             {
-                case "1": return Task.FromResult((IPresenter)Container.GetInstance<NewGamePresenter>());
+                case "1": return Container.GetInstance<NewGamePresenter>();
                 //case "1": return _container.GetInstance<AddStaffToPortalPresenter>();
 
-                default: return Task.FromResult<IPresenter>(null);
+                default: return null;
             }
         }
         #endregion

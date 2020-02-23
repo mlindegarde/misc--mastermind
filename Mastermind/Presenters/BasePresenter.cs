@@ -33,7 +33,7 @@ namespace Mastermind.Presenters
         #endregion
 
         #region IPresenter Implementation
-        public virtual async Task<IPresenter> PresentAsync()
+        public virtual IPresenter Present()
         {
             View.Render();
 
@@ -42,12 +42,12 @@ namespace Mastermind.Presenters
             if (String.IsNullOrEmpty(input))
                 input = DefaultInput;
 
-            return await OnUserInputAsync(input);
+            return OnUserInput(input);
         }
         #endregion
 
         #region Utility Methods
-        protected abstract Task<IPresenter> OnUserInputAsync(string input);
+        protected abstract IPresenter OnUserInput(string input);
         #endregion
     }
 }
