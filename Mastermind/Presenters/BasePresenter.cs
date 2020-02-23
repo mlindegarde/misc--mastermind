@@ -48,11 +48,6 @@ namespace Mastermind.Presenters
 
         #region Utility Methods
         protected abstract Task<IPresenter> OnUserInputAsync(string input);
-
-        protected void PauseForEffect()
-        {
-            Console.ReadLine();
-        }
         #endregion
     }
 }

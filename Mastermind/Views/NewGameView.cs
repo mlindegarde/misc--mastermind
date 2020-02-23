@@ -4,7 +4,7 @@ using Mastermind.Presenters;
 
 namespace Mastermind.Views
 {
-    public class InstructionsView : BaseView<InstructionsPresenter>
+    public class NewGameView : BaseView<NewGamePresenter>
     {
         #region Member Variables
         private readonly Settings _settings;
@@ -15,7 +15,7 @@ namespace Mastermind.Views
         #endregion
 
         #region Constructor
-        public InstructionsView(Settings settings)
+        public NewGameView(Settings settings)
         {
             _settings = settings;
         }
@@ -37,7 +37,7 @@ namespace Mastermind.Views
             Console.WriteLine("response from Mastermind.  If you enter a digit");
             Console.WriteLine("that is correct, but in the wrong position you");
             Console.WriteLine("will see a '-' in the response.");
-            RenderFooter($"Would you like to play [{Presenter.DefaultInput}]: ");
+            RenderFooter($"Are you ready to play [{Presenter.DefaultInput}]: ");
         }
         #endregion
     }

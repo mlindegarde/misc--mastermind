@@ -1,20 +1,21 @@
 ﻿using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Lamar;
+using Mastermind.Model;
 using Mastermind.Views;
 using Serilog;
 
 namespace Mastermind.Presenters
 {
-    public class InstructionsPresenter : BasePresenter<InstructionsView,InstructionsPresenter>
+    public class NewGamePresenter : BasePresenter<NewGameView,NewGamePresenter>
     {
         #region Properties
         public override string DefaultInput => "Y";
         #endregion
 
         #region Constructor
-        public InstructionsPresenter(
-            InstructionsView view,
+        public NewGamePresenter(
+            NewGameView view,
             IContainer container,
             ILogger logger)
             : base(view, container, logger)
@@ -27,11 +28,15 @@ namespace Mastermind.Presenters
         {
             Regex confirmRegEx = new Regex(@"^yep|yes|yeah|y$", RegexOptions.IgnoreCase);
 
-            IPresenter presenter = confirmRegEx.IsMatch(input)
-                ? (IPresenter)Container.GetInstance<InteractiveGamePresenter>()
-                : Container.GetInstance<MainMenuPresenter>();
+            if(confirmRegEx.IsMatch(input))
+            {
+                GetGuessPresenter presenter = Container.GetInstance<GetGuessPresenter>();
+                presenter.Game = Container.GetInstance<Game>();
 
-            return Task.FromResult(presenter);
+                return Task.FromResult((IPresenter)presenter);
+            }
+            
+            return Task.FromResult((IPresenter)Container.GetInstance<MainMenuPresenter>());
         }
         #endregion
     }

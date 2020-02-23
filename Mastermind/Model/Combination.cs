@@ -33,7 +33,7 @@ namespace Mastermind.Model
 
         public Result Try(string guess, string answer)
         {
-            Result result = new Result();
+            Result result = new Result(guess);
 
             List<char> answerValues = new List<char>();
             List<char> guessValues = new List<char>();

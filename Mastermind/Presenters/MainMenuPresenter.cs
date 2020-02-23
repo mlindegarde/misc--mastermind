@@ -28,7 +28,7 @@ namespace Mastermind.Presenters
         {
             switch (input)
             {
-                case "1": return Task.FromResult((IPresenter)Container.GetInstance<InstructionsPresenter>());
+                case "1": return Task.FromResult((IPresenter)Container.GetInstance<NewGamePresenter>());
                 //case "1": return _container.GetInstance<AddStaffToPortalPresenter>();
 
                 default: return Task.FromResult<IPresenter>(null);

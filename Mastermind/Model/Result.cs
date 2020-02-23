@@ -5,6 +5,8 @@ namespace Mastermind.Model
     public class Result
     {
         #region Properties
+        public string Guess { get; set; }
+
         public int ExactlyRight { get; set; } = 0;
         public int SortaRight { get; set; } = 0;
         public int CompletelyWrong { get; set; } = 0;
@@ -12,6 +14,13 @@ namespace Mastermind.Model
 
         #region Wrapper Properties
         public bool WasRight => CompletelyWrong == 0 && SortaRight == 0;
+        #endregion
+
+        #region Constructor
+        public Result(string guess)
+        {
+            Guess = guess;
+        }
         #endregion
 
         #region Methods
