@@ -33,6 +33,8 @@ namespace Mastermind.Presenters
             InteractiveGameView gameView = View as InteractiveGameView;
 
             gameView.Render();
+
+
             gameView.RenderPrompt();
 
             string input = Console.ReadLine();
