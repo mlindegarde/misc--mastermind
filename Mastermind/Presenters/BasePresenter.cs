@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Lamar;
 using Mastermind.Views;
 using Serilog;
 
@@ -11,17 +12,22 @@ namespace Mastermind.Presenters
     {
         #region Properties
         public TView View { get; }
+        protected IContainer Container { get; }
         protected ILogger Logger { get; }
 
-        protected abstract string DefaultInput { get; }
+        public abstract string DefaultInput { get; }
         #endregion
 
         #region Constructor
-        protected BasePresenter(TView view, ILogger logger)
+        protected BasePresenter(
+            TView view, 
+            IContainer container, 
+            ILogger logger)
         {
             View = view;
             View.Presenter = this as TPresenter;
 
+            Container = container;
             Logger = logger;
         }
         #endregion

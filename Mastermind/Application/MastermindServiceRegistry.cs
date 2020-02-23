@@ -19,6 +19,15 @@ namespace Mastermind.Application
                 new LoggerConfiguration()
                     .WriteTo.Console().MinimumLevel.Verbose()
                     .CreateLogger()).Singleton();
+
+            For<Settings>().Use(
+                new Settings
+                {
+                    CombinationLength = 4,
+                    MinimumDigit = 1,
+                    MaximumDigit = 6,
+                    GuessLimit = 10
+                }).Singleton();
         }
     }
 }

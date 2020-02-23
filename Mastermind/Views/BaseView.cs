@@ -23,12 +23,6 @@ namespace Mastermind.Views
         public TPresenter Presenter { get; set; }
         #endregion
 
-        #region Constructor
-        protected BaseView()
-        {
-        }
-        #endregion
-
         #region IView Implementation
         public abstract void Render();
 
@@ -51,11 +45,6 @@ namespace Mastermind.Views
         public void Clear()
         {
             Console.Clear();
-        }
-
-        public void Notify(string message)
-        {
-            Console.WriteLine($"UPDATE - {message}");
         }
 
         public void RenderHeader(string header)

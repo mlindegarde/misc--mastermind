@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Lamar;
+using Mastermind.Application;
+using Mastermind.Model;
 using Mastermind.Views;
 using Serilog;
 
@@ -8,12 +10,8 @@ namespace Mastermind.Presenters
 {
     public class InteractiveGamePresenter : BasePresenter<InteractiveGameView, InteractiveGamePresenter>
     {
-        #region Member Variables
-        private readonly IContainer _container;
-        #endregion
-
         #region Properties
-        protected override string DefaultInput => "0";
+        public override string DefaultInput => "0";
         #endregion
 
         #region Constructor
@@ -21,28 +19,38 @@ namespace Mastermind.Presenters
             InteractiveGameView view, 
             IContainer container, 
             ILogger logger)
-            : base(view, logger)
+            : base(view, container, logger)
         {
-            _container = container;
         }
         #endregion
 
         #region Base Class Overrides
-        public override async Task<IPresenter> PresentAsync()
+        public override Task<IPresenter> PresentAsync()
         {
-            InteractiveGameView gameView = View as InteractiveGameView;
+            Combination combination =
+                new CombinationBuilder()
+                    .WithLength(4)
+                    .UsingDigitsBetween(1, 6);
 
-            gameView.Render();
+            View.Render();
 
+            int guessCount = 0;
 
-            gameView.RenderPrompt();
+            Result result;
 
-            string input = Console.ReadLine();
+            do
+            {
+                View.RenderPrompt();
+                string guess = Console.ReadLine();
 
-            if(String.IsNullOrEmpty(input))
-                input = DefaultInput;
+                result = combination.Try(guess);
 
-            return await OnUserInputAsync(input);
+                View.RenderResult(result);
+                guessCount++;
+
+            } while (guessCount < 10 && !result.WasRight);
+
+            return Task.FromResult((IPresenter)Container.GetInstance<MainMenuPresenter>());
         }
 
         protected override Task<IPresenter> OnUserInputAsync(string input)

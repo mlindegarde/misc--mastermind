@@ -9,12 +9,6 @@ namespace Mastermind.Views
         public override string Title => "MAIN MENU";
         #endregion
 
-        #region Constructor
-        public MainMenuView()
-        {
-        }
-        #endregion
-
         #region Base Class Overrides
         public override void Render()
         {
@@ -27,7 +21,7 @@ namespace Mastermind.Views
             RenderSecondaryDivider();
             Console.WriteLine("[0] Exit");
 
-            RenderFooter("SELECTION [0]: ");
+            RenderFooter($"SELECTION [{Presenter.DefaultInput}]: ");
         }
         #endregion
     }

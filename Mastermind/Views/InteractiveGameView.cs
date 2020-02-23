@@ -1,4 +1,5 @@
 ﻿using System;
+using Mastermind.Model;
 using Mastermind.Presenters;
 
 namespace Mastermind.Views
@@ -27,6 +28,11 @@ namespace Mastermind.Views
             Console.ForegroundColor = PromptColor;
             Console.Write("GUESS: ");
             Console.ForegroundColor = DefaultColor;
+        }
+
+        public void RenderResult(Result result)
+        {
+            Console.WriteLine($"RESULT: {result}");
         }
         #endregion
     }
