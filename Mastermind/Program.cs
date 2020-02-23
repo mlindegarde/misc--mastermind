@@ -28,10 +28,10 @@ namespace Mastermind
 
         static async Task Main()
         {
-            Program game = new Program();
+            Program program = new Program();
 
-            game.Init();
-            await game.RunAsync();
+            program.Init();
+            await program.RunAsync();
         }
     }
 }
