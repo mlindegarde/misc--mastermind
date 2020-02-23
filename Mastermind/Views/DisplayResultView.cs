@@ -17,7 +17,14 @@ namespace Mastermind.Views
         {
             Clear();
             RenderHeader(Title);
-            Console.WriteLine(Result);
+            Console.WriteLine("Key:");
+            Console.WriteLine("\t'+' = You guessed a digit exactly correct");
+            Console.WriteLine("\t'-' = You guessed a digit correctly, but");
+            Console.WriteLine("\t      have the position wrong");
+            Console.WriteLine();
+            RenderSecondaryDivider();
+            Console.WriteLine($"GUESS: {Result.Guess}");
+            Console.WriteLine($"RESULT: {Result}");
             RenderFooter("Press ENTER to continue: ");
         }
         #endregion

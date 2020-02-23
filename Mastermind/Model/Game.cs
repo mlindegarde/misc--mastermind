@@ -8,6 +8,7 @@ namespace Mastermind.Model
         #region Properties
         public Combination Combination { get; }
         public List<Result> History { get; }
+        public bool WasWon { get; set; }
         #endregion
 
         #region Wrapper Properties
@@ -29,6 +30,8 @@ namespace Mastermind.Model
         public Result TryCombination(string guess)
         {
             Result result = Combination.Try(guess);
+
+            WasWon = result.WasRight;
 
             History.Add(result);
             return result;

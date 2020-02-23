@@ -1,6 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Lamar;
+using Mastermind.Application;
 using Mastermind.Model;
 using Mastermind.Views;
 using Serilog;
@@ -9,8 +10,12 @@ namespace Mastermind.Presenters
 {
     public class DisplayResultPresenter : BasePresenter<DisplayResultView, DisplayResultPresenter>
     {
+        #region Member Variables
+        private Settings _settings;
+        #endregion
+
         #region Properties
-        public override string DefaultInput => "Y";
+        public override string DefaultInput => "";
 
         public Game Game { get; set; }
         public Result Result { get; set; }
@@ -19,10 +24,12 @@ namespace Mastermind.Presenters
         #region Constructor
         public DisplayResultPresenter(
             DisplayResultView view,
+            Settings settings,
             IContainer container,
             ILogger logger)
             : base(view, container, logger)
         {
+            _settings = settings;
         }
         #endregion
 
@@ -36,17 +43,15 @@ namespace Mastermind.Presenters
 
         protected override Task<IPresenter> OnUserInputAsync(string input)
         {
-            Regex confirmRegEx = new Regex(@"^yep|yes|yeah|y$", RegexOptions.IgnoreCase);
-
-            if (confirmRegEx.IsMatch(input))
+            if(Game.WasWon || Game.GuessCount == _settings.GuessLimit)
             {
-                GetGuessPresenter presenter = Container.GetInstance<GetGuessPresenter>();
-                presenter.Game = Game;
 
-                return Task.FromResult((IPresenter)presenter);
             }
 
-            return Task.FromResult((IPresenter)Container.GetInstance<MainMenuPresenter>());
+            GetGuessPresenter presenter = Container.GetInstance<GetGuessPresenter>();
+            presenter.Game = Game;
+
+            return Task.FromResult((IPresenter)presenter);
         }
         #endregion
     }
