@@ -1,5 +1,4 @@
 ﻿using Lamar;
-using Mastermind.Ai;
 using Mastermind.Application;
 using Mastermind.Model;
 using Microsoft.Extensions.Configuration;
