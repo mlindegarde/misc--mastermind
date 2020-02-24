@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Mastermind.Application;
 
 namespace Mastermind.Model
 {
@@ -26,14 +27,14 @@ namespace Mastermind.Model
         #endregion
 
         #region Methods
-        public Result Try(string guess)
+        public GuessResult Try(string guess)
         {
             return Try(guess, _value);
         }
 
-        public Result Try(string guess, string answer)
+        public GuessResult Try(string guess, string answer)
         {
-            Result result = new Result();
+            GuessResult result = new GuessResult();
 
             List<char> answerValues = new List<char>();
             List<char> guessValues = new List<char>();

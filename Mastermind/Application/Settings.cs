@@ -1,4 +1,4 @@
-﻿namespace Mastermind.Model
+﻿namespace Mastermind.Application
 {
     public class Settings
     {

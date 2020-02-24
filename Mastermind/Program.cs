@@ -2,6 +2,7 @@
 using Mastermind.Ai;
 using Mastermind.Application;
 using Mastermind.Model;
+using Microsoft.Extensions.Configuration;
 
 namespace Mastermind
 {
@@ -9,22 +10,18 @@ namespace Mastermind
     {
         #region Member Variables
         private IContainer _container;
-        private Settings _settings;
         #endregion
 
         #region Methods
         private void Init()
         {
-            _settings =
-                new Settings
-                {
-                    CombinationLength = 4,
-                    MinimumDigit = 1,
-                    MaximumDigit = 6,
-                    GuessLimit = 10
-                };
+            Settings settings =
+                new ConfigurationBuilder()
+                    .AddJsonFile("appsettings.json")
+                    .Build()
+                    .Get<Settings>();
 
-            _container = new Container(new MastermindServiceRegistry(_settings));
+            _container = new Container(new MastermindServiceRegistry(settings));
         }
 
         private void Run()

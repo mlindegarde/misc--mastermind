@@ -14,7 +14,7 @@ namespace Mastermind.Model
         private readonly Solver _solver;
 
         private Combination _combination;
-        private List<Result> _history;
+        private List<GuessResult> _history;
         #endregion
 
         #region Properties
@@ -39,7 +39,7 @@ namespace Mastermind.Model
                     .WithLength(_settings.CombinationLength)
                     .UsingDigitsBetween(_settings.MinimumDigit, _settings.MaximumDigit);
 
-            _history = new List<Result>();
+            _history = new List<GuessResult>();
         }
 
         public void DisplayRules()
@@ -64,7 +64,7 @@ namespace Mastermind.Model
                 return;
             }
 
-            Result result = _combination.Try(input);
+            GuessResult result = _combination.Try(input);
 
             Console.WriteLine($"RESULT: {result}{Environment.NewLine}");
             _history.Add(result);

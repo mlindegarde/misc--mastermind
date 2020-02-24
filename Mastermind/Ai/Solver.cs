@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Mastermind.Application;
 using Mastermind.Model;
 
 namespace Mastermind.Ai
@@ -28,7 +29,7 @@ namespace Mastermind.Ai
 
         private void Crack(Combination combination, string guess, Solution solution, List<string> possibilities)
         {
-            Result baseResult = combination.Try(guess);
+            GuessResult baseResult = combination.Try(guess);
 
             solution.Guesses.Add(guess);
 
@@ -40,7 +41,7 @@ namespace Mastermind.Ai
 
             for (int i = 0; i < possibilities.Count; i++)
             {
-                Result result = combination.Try(guess, possibilities[i]);
+                GuessResult result = combination.Try(guess, possibilities[i]);
 
                 if(!result.HasSameIndicatorsAs(baseResult))
                 {

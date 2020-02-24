@@ -1,8 +1,8 @@
 ﻿using System.Text;
 
-namespace Mastermind.Model
+namespace Mastermind.Application
 {
-    public class Result
+    public class GuessResult
     {
         #region Properties
         public int ExactlyRight { get; set; } = 0;
@@ -15,7 +15,7 @@ namespace Mastermind.Model
         #endregion
 
         #region Methods
-        public bool HasSameIndicatorsAs(Result other)
+        public bool HasSameIndicatorsAs(GuessResult other)
         {
             return ExactlyRight == other.ExactlyRight && SortaRight == other.SortaRight;
         }
@@ -37,7 +37,7 @@ namespace Mastermind.Model
         #endregion
 
         #region Operators
-        public static implicit operator string(Result result) => result.ToString();
+        public static implicit operator string(GuessResult result) => result.ToString();
         #endregion
     }
 }
