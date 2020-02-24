@@ -1,4 +1,5 @@
-﻿using Mastermind.Ai;
+﻿using Lamar;
+using Mastermind.Ai;
 using Mastermind.Application;
 using Mastermind.Model;
 
@@ -7,6 +8,7 @@ namespace Mastermind
     class Program
     {
         #region Member Variables
+        private IContainer _container;
         private Settings _settings;
         #endregion
 
@@ -21,11 +23,13 @@ namespace Mastermind
                     MaximumDigit = 6,
                     GuessLimit = 10
                 };
+
+            _container = new Container(new MastermindServiceRegistry(_settings));
         }
 
         private void Run()
         {
-            Game game = new Game(_settings, new InputValidator(_settings), new Solver());
+            Game game = _container.GetInstance<Game>();
 
             game.Init();
             game.DisplayRules();
