@@ -1,4 +1,5 @@
-﻿using Lamar;
+﻿using System;
+using Lamar;
 using Mastermind.Application;
 using Mastermind.Model;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +20,9 @@ namespace Mastermind
                     .AddJsonFile("appsettings.json")
                     .Build()
                     .Get<Settings>();
+
+            if(!settings.AreValid())
+                throw new ApplicationException("The settings are not valid, double check those");
 
             _container = new Container(new MastermindServiceRegistry(settings));
         }
@@ -44,12 +48,26 @@ namespace Mastermind
         }
         #endregion
 
+        #region Program Entry Point
         static void Main()
         {
             Program program = new Program();
 
-            program.Init();
-            program.Run();
+            try
+            {
+                program.Init();
+                program.Run();
+            }
+            catch(ApplicationException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Uh oh, I'm not really sure how we got here...");
+                Console.WriteLine(ex.Message);
+            }
         }
+        #endregion
     }
 }
