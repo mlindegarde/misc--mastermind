@@ -1,5 +1,4 @@
-﻿using System;
-using Mastermind.Ai;
+﻿using Mastermind.Ai;
 using Mastermind.Application;
 using Mastermind.Model;
 
@@ -8,47 +7,49 @@ namespace Mastermind
     class Program
     {
         #region Member Variables
-        private Combination _combination;
+        private Settings _settings;
         #endregion
 
         #region Methods
         private void Init()
         {
-            _combination =
-                new CombinationBuilder()
-                    .WithLength(4)
-                    .UsingDigitsBetween(1, 6);
+            _settings =
+                new Settings
+                {
+                    CombinationLength = 4,
+                    MinimumDigit = 1,
+                    MaximumDigit = 6,
+                    GuessLimit = 10
+                };
         }
 
         private void Run()
         {
-            int guessCount = 0;
+            Game game = new Game(_settings, new InputValidator(_settings), new Solver());
 
-            Result result;
+            game.Init();
+            game.DisplayRules();
 
-            do
+            while (!game.IsOver)
             {
-                string guess = Console.ReadLine();
+                game.Play();
+            }
 
-                result = _combination.Try(guess);
+            game.DisplayResults();
 
-                Console.WriteLine(result);
-                guessCount++;
+            if (!game.WasSuccessful)
+                game.ShowHowItsDone();
 
-            } while(guessCount < 10 && !result.WasRight);
-
-            Solver solver = new Solver();
-            Solution solution = solver.Crack(_combination);
-            Console.ReadLine();
+            game.PauseForEffect();
         }
         #endregion
 
         static void Main()
         {
-            Program game = new Program();
+            Program program = new Program();
 
-            game.Init();
-            game.Run();
+            program.Init();
+            program.Run();
         }
     }
 }

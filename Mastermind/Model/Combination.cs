@@ -63,6 +63,8 @@ namespace Mastermind.Model
 
             return result;
         }
+
+        public string GetAnswer() => _value;
         #endregion
     }
 }

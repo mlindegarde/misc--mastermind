@@ -7,6 +7,7 @@ namespace Mastermind.Ai
 {
     public class Solver
     {
+        #region Methods
         public Solution Crack(Combination combination)
         {
             Solution solution = new Solution();
@@ -48,6 +49,7 @@ namespace Mastermind.Ai
                 }
             }
         }
+        #endregion
 
         #region Utility Methods
         private string GenerateInitialGuess(Combination combination)
