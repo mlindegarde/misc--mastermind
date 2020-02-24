@@ -1,5 +1,4 @@
 ﻿using Lamar;
-using Mastermind.Model;
 
 namespace Mastermind.Application
 {

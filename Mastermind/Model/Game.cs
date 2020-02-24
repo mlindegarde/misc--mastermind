@@ -74,7 +74,7 @@ namespace Mastermind.Model
         {
             string result = _history.Last().WasRight
                 ? "Congratulations, your guess was right"
-                : $"The answer was {_combination.GetAnswer()}.  You have used all {_settings.GuessLimit} of your guesses";
+                : $"You have used all {_settings.GuessLimit} of your guesses.  The answer was {_combination.GetAnswer()}.";
 
             Console.WriteLine(result);
         }
@@ -83,9 +83,11 @@ namespace Mastermind.Model
         {
             Solution solution = _solver.Crack(_combination);
 
+            Console.WriteLine();
             Console.WriteLine("You should have tried:");
             Console.WriteLine(String.Join(Environment.NewLine, solution.Guesses.Select(g => $"  - {g} = {_combination.Try(g)}")));
-            Console.WriteLine($"That would have gotten you to {_combination.GetAnswer()}");
+            Console.WriteLine();
+            Console.WriteLine($"That would have gotten you to {_combination.GetAnswer()}.");
             Console.WriteLine();
         }
 
