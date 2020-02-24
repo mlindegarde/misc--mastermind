@@ -96,8 +96,8 @@ namespace Mastermind.Ai
         /// length I could have easily used nested loops.  I don't know the length of the
         /// combination so I used recursion and a stack instead.
         /// </remarks>
-        /// <param name="combination"></param>
-        /// <returns></returns>
+        /// <param name="combination">The Combination object used to define solution space</param>
+        /// <returns>A list of strings containing all valid digit combinations</string></returns>
         private List<string> GenerateAllPossibilities(Combination combination)
         {
             List<string> solutions = new List<string>();
