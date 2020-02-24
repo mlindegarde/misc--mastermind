@@ -28,24 +28,21 @@ namespace Mastermind.Tests.Model
             result.ToString().Should().Be("++++");
         }
 
-        [Fact]
-        public void Should__IndicateWhatIsRight__When__GuessIsPartiallyCorrect()
+        [Theory]
+        [InlineData("1122", "1123", "+++")]
+        [InlineData("1122", "2211", "----")]
+        [InlineData("1122", "1261", "+--")]
+        public void Should__IndicateWhatIsRight__When__GuessIsPartiallyCorrect(string answer, string guess, string expectedResult)
         {
             // arrange
-            Combination combination =
-                new CombinationBuilder()
-                    .WithLength(4)
-                    .UsingDigitsBetween(1, 6);
-
-            char[] guess = combination.GetAnswer().ToArray();
-            guess[3] = guess[3] == '1'? '2': '1';
+            Combination combination = new Combination(answer, 1, 6);
 
             // act
-            GuessResult result = combination.Try(new String(guess));
+            GuessResult result = combination.Try(guess);
 
             // assert
             result.WasRight.Should().BeFalse();
-            result.ToString().Should().Be("+++");
+            result.ToString().Should().Be(expectedResult);
         }
     }
 }

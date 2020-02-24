@@ -71,12 +71,14 @@ namespace Mastermind
             {
                 // This should only happen with the application settings are not valid.
                 Console.WriteLine(ex.Message);
+                Console.ReadLine();
             }
             catch(Exception ex)
             {
                 // If we ended up here, then I got something wrong.
                 Console.WriteLine("Uh oh, I'm not really sure how we got here...");
                 Console.WriteLine(ex.Message);
+                Console.ReadLine();
             }
         }
         #endregion

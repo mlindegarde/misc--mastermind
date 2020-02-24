@@ -18,6 +18,7 @@ namespace Mastermind.Model
         #endregion
 
         #region Properties
+        // Readonly properties used to tell the Program the game's current state.
         public bool IsOver => _history?.Count == _settings.GuessLimit || _history?.LastOrDefault()?.WasRight == true;
         public bool WasSuccessful => _history?.LastOrDefault()?.WasRight == true;
         #endregion
@@ -25,6 +26,7 @@ namespace Mastermind.Model
         #region Constructor
         public Game(Settings settings, InputValidator inputValidator, Solver solver)
         {
+            // These values come from the IoC container.
             _settings = settings;
             _inputValidator = inputValidator;
             _solver = solver;
@@ -34,6 +36,7 @@ namespace Mastermind.Model
         #region Methods
         public void Init()
         {
+            // Create a new combination using values from the appsettings.json file.
             _combination =
                 new CombinationBuilder()
                     .WithLength(_settings.CombinationLength)
@@ -54,10 +57,14 @@ namespace Mastermind.Model
 
         public void Play()
         {
+            // This method is repeatedly called from the Program::Run method until IsComplete
+            // become true as a result of reaching the guess limit or successfully solving
+            // the problem.
             Console.Write($"GUESS #{_history.Count+1:00}: ");
             string input = Console.ReadLine();
             ValidationResult validationResult = _inputValidator.Validate(input);
 
+            // Don't except invalid input.  That could cause some real problems.
             if(!validationResult.IsValid)
             {
                 DisplayErrors(validationResult);
@@ -81,6 +88,9 @@ namespace Mastermind.Model
 
         public void ShowHowItsDone()
         {
+            // Let the solver show the user a relatively optimal path of guesses that
+            // would have lead to the correct answer.  In reality humans will never be
+            // able to pull this off.
             Solution solution = _solver.Crack(_combination);
 
             Console.WriteLine();

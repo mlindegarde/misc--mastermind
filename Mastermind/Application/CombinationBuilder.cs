@@ -4,6 +4,9 @@ using Mastermind.Model;
 
 namespace Mastermind.Application
 {
+    /// <summary>
+    /// This class provides a more declarative way to build the Combination object.
+    /// </summary>
     public class CombinationBuilder
     {
         #region Member Variables
@@ -31,6 +34,9 @@ namespace Mastermind.Application
         {
             Random rnd = new Random();
 
+            // Randomly generate a new combination given the parameters that have
+            // been configured.  Random comment, other languages have much better
+            // range support than C#.
             return
                 new Combination(
                     new String(
@@ -44,6 +50,8 @@ namespace Mastermind.Application
         #endregion
 
         #region Operators
+        // A convenience method that makes it so that we don't have to explicitly
+        // call the build method.
         public static implicit operator Combination(CombinationBuilder builder) => builder.Build();
         #endregion
     }

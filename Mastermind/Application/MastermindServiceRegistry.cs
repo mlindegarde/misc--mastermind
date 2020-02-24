@@ -1,4 +1,5 @@
 ﻿using Lamar;
+using Serilog;
 
 namespace Mastermind.Application
 {
@@ -7,6 +8,8 @@ namespace Mastermind.Application
         #region Constructor
         public MastermindServiceRegistry(Settings settings)
         {
+            // Simple IoC configuration preferring convention over explicit
+            // configuration.
             Scan(
                 s =>
                 {
@@ -15,6 +18,12 @@ namespace Mastermind.Application
                 });
 
             For<Settings>().Use(settings).Singleton();
+
+            For<ILogger>().Use(
+                new LoggerConfiguration()
+                    .MinimumLevel.Is(settings.MinimumLogLevel)
+                    .WriteTo.Console()
+                    .CreateLogger());
         }
         #endregion
     }
