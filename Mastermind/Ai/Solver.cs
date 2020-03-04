@@ -29,7 +29,7 @@ namespace Mastermind.Ai
             // solutions.
             List<string> possibilities = GenerateAllPossibilities(combination);
 
-            // For a 4 digit combination 1122 works.  According to this UR:
+            // For a 4 digit combination 1122 works.  According to this URL:
             // https://arxiv.org/pdf/1305.1010.pdf you would use 11223 for a five digit
             // combination.  This code extrapolates that out for longer combinations.
             string guess = GenerateInitialGuess(combination);
