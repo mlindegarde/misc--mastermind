@@ -6,11 +6,11 @@ This solution contains two projects:
 1. **Mastermind** - The actual game implementation
 2. **Mastermind.Tests** - Nowhere near complete test coverage, but used to test some of the core elements of the project.
 
-A simple implementation of the `Swaszek` solver was implemented more or less for the fun of it.
+A simple implementation of the `Swaszek` solver was added more or less for the fun of it.
 
-I had a hard time deciding where to draw the line when it comes to complexity.  Given the position I'm interviewing for I wanted to show some design patterns.
+I had a hard time deciding where to draw the line when it comes to complexity.  Given the position I'm interviewing for I wanted to demonstrate at least a few design patterns.
 
-I did start a more complex version of this project.  You can find it in the `add-mvc` branch.  It is mostly functional, but I ultimately decided it was overcomplex for the purpose.
+I did start a more complex version of this project.  You can find it in the `add-mvc` branch.  It is mostly functional, but I ultimately decided it was overly complex for the purpose.
 
 ## The Important code
 You'll find the main game loop in `Program.Run()`.  It takes care of initializing the `Game` object and running it through to completion:
